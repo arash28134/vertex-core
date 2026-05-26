@@ -1,0 +1,13 @@
+{
+  "name": "vertex-core",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "freeglut",
+    "glew",
+    "glfw3",
+    "glm",
+    "assimp",
+    "freeimage",
+    "imgui"
+  ]
+}

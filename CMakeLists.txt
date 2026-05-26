@@ -6,9 +6,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(GLEW CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
+find_package(imgui CONFIG REQUIRED)
 find_package(FreeImage REQUIRED)
-find_package(assimp   REQUIRED)
-find_package(FreeGLUT REQUIRED)
+find_package(assimp CONFIG REQUIRED)
+find_package(FreeGLUT CONFIG REQUIRED)
 
 file(GLOB_RECURSE SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
@@ -24,9 +25,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
     glfw
     glm::glm
-    
+    imgui::imgui
     GLEW::GLEW
-    FreeGLUT::freeglut          # use FreeGLUT::freeglut_static for static linking
+    freeglut::freeglut          # use FreeGLUT::freeglut_static for static linking
     assimp::assimp
     FreeImage::FreeImage
 )
