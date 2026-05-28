@@ -3,6 +3,7 @@ project(vertex-core)               # project name
 set(CMAKE_CXX_STANDARD 17)            # enable c++17 standard
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+find_package(OpenGL REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(GLEW CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
@@ -20,6 +21,7 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/include"
+    ${FREEIMAGE_INCLUDE_DIRS}
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
@@ -27,9 +29,10 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     glm::glm
     imgui::imgui
     GLEW::GLEW
-    freeglut::freeglut          # use FreeGLUT::freeglut_static for static linking
+    FreeGLUT::freeglut          # use FreeGLUT::freeglut_static for static linking
     assimp::assimp
-    FreeImage::FreeImage
+    ${FREEIMAGE_LIBRARIES}
+    OpenGL::GL
 )
 
 
