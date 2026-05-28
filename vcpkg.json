@@ -2,12 +2,18 @@
   "name": "vertex-core",
   "version-string": "1.0.0",
   "dependencies": [
+    {
+      "name": "imgui",
+      "features": [
+        "glfw-binding",
+        "opengl3-binding"
+      ]
+    },
     "freeglut",
     "glew",
     "glfw3",
     "glm",
     "assimp",
-    "freeimage",
-    "imgui"
+    "freeimage"
   ]
 }

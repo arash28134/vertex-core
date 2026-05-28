@@ -1,5 +1,5 @@
 /*
-* @author Nadir Román Guerrero
+* @author Nadir Romï¿½n Guerrero
 * @email nadir.ro.gue@gmail.com
 */
 

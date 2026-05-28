@@ -8,7 +8,7 @@ find_package(glfw3 CONFIG REQUIRED)
 find_package(GLEW CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
-find_package(FreeImage REQUIRED)
+find_package(freeimage CONFIG REQUIRED)
 find_package(assimp CONFIG REQUIRED)
 find_package(FreeGLUT CONFIG REQUIRED)
 
@@ -21,7 +21,7 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/include"
-    ${FREEIMAGE_INCLUDE_DIRS}
+    ${imgui_INCLUDE_DIRS}
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
@@ -31,7 +31,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
     GLEW::GLEW
     FreeGLUT::freeglut          # use FreeGLUT::freeglut_static for static linking
     assimp::assimp
-    ${FREEIMAGE_LIBRARIES}
+    freeimage::FreeImage
     OpenGL::GL
 )
 

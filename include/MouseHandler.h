@@ -1,5 +1,5 @@
 /*
-* @author Nadir Román Guerrero
+* @author Nadir Romï¿½n Guerrero
 * @email nadir.ro.gue@gmail.com
 */
 
@@ -7,6 +7,7 @@
 
 #include <map>
 #include <list>
+#include <string>
 
 namespace Engine
 {

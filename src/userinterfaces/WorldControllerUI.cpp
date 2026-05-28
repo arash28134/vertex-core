@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <sstream>
 
-#include "imgui/imgui.h"
+#include <imgui.h>
 #include "WorldConfig.h"
 #include "TimeAccesor.h"
 #include "Scene.h"

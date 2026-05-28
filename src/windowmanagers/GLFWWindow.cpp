@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "imgui/imgui.h"
+#include <imgui.h>
 
 #include "Renderer.h"
 #include "Scene.h"
@@ -24,13 +24,15 @@ void Engine::Window::defaultGLFWKeyboardCallback(GLFWwindow * window, int key, i
 	}
 
 	ImGuiIO& io = ImGui::GetIO();
+
 	if (action == GLFW_PRESS)
 	{
-		io.KeysDown[key] = true;
-		io.AddInputCharacter(unsigned short(key));
+    	io.AddKeyEvent(ImGuiKey(key), true);
 	}
-	if (action == GLFW_RELEASE)
-		io.KeysDown[key] = false;
+	else if (action == GLFW_RELEASE)
+	{
+    	io.AddKeyEvent(ImGuiKey(key), false);
+	}
 }
 
 void Engine::Window::defaultGLFWMouseInputCallback(GLFWwindow * window, int button, int action, int mods)

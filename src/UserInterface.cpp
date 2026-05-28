@@ -1,8 +1,11 @@
 #include "UserInterface.h"
 
-#include "imgui/imgui.h"
-#include "imgui/imgui_internal.h"
-#include "imgui/imconfig.h"
+#include <imgui.h>
+#include <imgui_internal.h>
+#include <imconfig.h>
+
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 #include <iostream>
 
@@ -124,25 +127,25 @@ void Engine::Window::UserInterface::createFontsTexture()
 	// Restore state
 	glBindTexture(GL_TEXTURE_2D, last_texture);
 
-	io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;                         // Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
-	io.KeyMap[ImGuiKey_LeftArrow] = GLFW_KEY_LEFT;
-	io.KeyMap[ImGuiKey_RightArrow] = GLFW_KEY_RIGHT;
-	io.KeyMap[ImGuiKey_UpArrow] = GLFW_KEY_UP;
-	io.KeyMap[ImGuiKey_DownArrow] = GLFW_KEY_DOWN;
-	io.KeyMap[ImGuiKey_PageUp] = GLFW_KEY_PAGE_UP;
-	io.KeyMap[ImGuiKey_PageDown] = GLFW_KEY_PAGE_DOWN;
-	io.KeyMap[ImGuiKey_Home] = GLFW_KEY_HOME;
-	io.KeyMap[ImGuiKey_End] = GLFW_KEY_END;
-	io.KeyMap[ImGuiKey_Delete] = GLFW_KEY_DELETE;
-	io.KeyMap[ImGuiKey_Backspace] = GLFW_KEY_BACKSPACE;
-	io.KeyMap[ImGuiKey_Enter] = GLFW_KEY_ENTER;
-	io.KeyMap[ImGuiKey_Escape] = GLFW_KEY_ESCAPE;
-	io.KeyMap[ImGuiKey_A] = GLFW_KEY_A;
-	io.KeyMap[ImGuiKey_C] = GLFW_KEY_C;
-	io.KeyMap[ImGuiKey_V] = GLFW_KEY_V;
-	io.KeyMap[ImGuiKey_X] = GLFW_KEY_X;
-	io.KeyMap[ImGuiKey_Y] = GLFW_KEY_Y;
-	io.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
+	// io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;                         // Keyboard mapping. ImGui will use those indices to peek into the io.KeyDown[] array.
+	// io.KeyMap[ImGuiKey_LeftArrow] = GLFW_KEY_LEFT;
+	// io.KeyMap[ImGuiKey_RightArrow] = GLFW_KEY_RIGHT;
+	// io.KeyMap[ImGuiKey_UpArrow] = GLFW_KEY_UP;
+	// io.KeyMap[ImGuiKey_DownArrow] = GLFW_KEY_DOWN;
+	// io.KeyMap[ImGuiKey_PageUp] = GLFW_KEY_PAGE_UP;
+	// io.KeyMap[ImGuiKey_PageDown] = GLFW_KEY_PAGE_DOWN;
+	// io.KeyMap[ImGuiKey_Home] = GLFW_KEY_HOME;
+	// io.KeyMap[ImGuiKey_End] = GLFW_KEY_END;
+	// io.KeyMap[ImGuiKey_Delete] = GLFW_KEY_DELETE;
+	// io.KeyMap[ImGuiKey_Backspace] = GLFW_KEY_BACKSPACE;
+	// io.KeyMap[ImGuiKey_Enter] = GLFW_KEY_ENTER;
+	// io.KeyMap[ImGuiKey_Escape] = GLFW_KEY_ESCAPE;
+	// io.KeyMap[ImGuiKey_A] = GLFW_KEY_A;
+	// io.KeyMap[ImGuiKey_C] = GLFW_KEY_C;
+	// io.KeyMap[ImGuiKey_V] = GLFW_KEY_V;
+	// io.KeyMap[ImGuiKey_X] = GLFW_KEY_X;
+	// io.KeyMap[ImGuiKey_Y] = GLFW_KEY_Y;
+	// io.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
 }
 
 void Engine::Window::UserInterface::initialize()
@@ -230,7 +233,7 @@ void Engine::Window::UserInterface::updateGraphics()
 			}
 			else
 			{
-				glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->TextureId);
+				glBindTexture(GL_TEXTURE_2D, (GLuint)(intptr_t)pcmd->GetTexID());
 				glScissor((int)pcmd->ClipRect.x, (int)(fb_height - pcmd->ClipRect.w), (int)(pcmd->ClipRect.z - pcmd->ClipRect.x), (int)(pcmd->ClipRect.w - pcmd->ClipRect.y));
 				glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, idx_buffer_offset);
 			}
@@ -343,12 +346,12 @@ void Engine::Window::UserInterface::release()
 	if (g_FontTexture)
 	{
 		glDeleteTextures(1, &g_FontTexture);
-		ImGui::GetIO().Fonts->TexID = 0;
+		ImGui::GetIO().Fonts->SetTexID(nullptr);
 		g_FontTexture = 0;
 	}
 
 	// Release ImGui
-	ImGui::Shutdown();
+	ImGui::DestroyContext();
 }
 
 // =======================================================================
