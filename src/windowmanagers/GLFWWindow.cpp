@@ -3,6 +3,8 @@
 #include <iostream>
 
 #include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 #include "Renderer.h"
 #include "Scene.h"
@@ -122,6 +124,17 @@ void Engine::Window::GLFWWindow::initializeContext()
 	initGlew();
 
 	addUserInterface(new Engine::Window::WorldControllerUI(window));
+
+	// Initialize ImGui
+	IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+	//ImGui::SetCurrentContext(ImGui::GetCurrentContext());
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	ImGui::StyleColorsDark();
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 410");
+	std::cout << "Context: " << ImGui::GetCurrentContext() << std::endl;
 }
 
 void Engine::Window::GLFWWindow::mainLoop()

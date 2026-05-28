@@ -301,12 +301,15 @@ void Engine::Window::UserInterface::render(double deltaTime)
 	glfwSetInputMode(surface, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	// Start the frame
+	ImGui_ImplGlfw_NewFrame();
+	ImGui_ImplOpenGL3_NewFrame();
 	ImGui::NewFrame();
 
 	// Specific implementation
 	drawGraphics();
 
 	ImGui::Render();
+	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 	updateGraphics();
 }
@@ -351,6 +354,8 @@ void Engine::Window::UserInterface::release()
 	}
 
 	// Release ImGui
+	ImGui_ImplGlfw_Shutdown();
+	ImGui_ImplOpenGL3_Shutdown();
 	ImGui::DestroyContext();
 }
 

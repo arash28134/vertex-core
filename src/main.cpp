@@ -1,5 +1,5 @@
 /**
-* @author Nadir Román Guerrero
+* @author Nadir Romï¿½n Guerrero
 * @email nadir.ro.gue@gmail.com
 */
 
@@ -83,18 +83,25 @@ Engine::PostProcessChainNode * createDOFNode();
 
 int main(int argc, char** argv)
 {
+	std::cout << "main started\n";
 	std::locale::global(std::locale("spanish")); // acentos ;)
 
+	std::cout << "before opengl\n";
 	// Initialize OpenGL and window system
 	initOpenGL();
+	std::cout << "before tables\n";
 	// Initialize caches
 	initTables();
+	std::cout << "before scene\n";
 	// Create new scene
 	initScene();
+	std::cout << "before before renderer\n";
 	// Build the renderer
 	initRenderEngine();
+	std::cout << "before before scene elements\n";
 	// Add scene elements
 	initSceneObj();
+	std::cout << "before input handlers\n";
 	// Create input handlers
 	initHandlers();
 	
