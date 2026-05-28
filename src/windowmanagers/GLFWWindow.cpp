@@ -134,7 +134,7 @@ void Engine::Window::GLFWWindow::initializeContext()
 	ImGui::StyleColorsDark();
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init("#version 410");
-	std::cout << "Context: " << ImGui::GetCurrentContext() << std::endl;
+	std::cout << "Created Context: " << ImGui::GetCurrentContext() << std::endl;
 }
 
 void Engine::Window::GLFWWindow::mainLoop()
