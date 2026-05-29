@@ -25,16 +25,16 @@ void Engine::Window::defaultGLFWKeyboardCallback(GLFWwindow * window, int key, i
 		table->handleKeyPress(key, x, y, action);
 	}
 
-	ImGuiIO& io = ImGui::GetIO();
+	// ImGuiIO& io = ImGui::GetIO();
 
-	if (action == GLFW_PRESS)
-	{
-    	io.AddKeyEvent(ImGuiKey(key), true);
-	}
-	else if (action == GLFW_RELEASE)
-	{
-    	io.AddKeyEvent(ImGuiKey(key), false);
-	}
+	// if (action == GLFW_PRESS)
+	// {
+    // 	io.AddKeyEvent(ImGuiKey(key), true);
+	// }
+	// else if (action == GLFW_RELEASE)
+	// {
+    // 	io.AddKeyEvent(ImGuiKey(key), false);
+	// }
 }
 
 void Engine::Window::defaultGLFWMouseInputCallback(GLFWwindow * window, int button, int action, int mods)
@@ -122,6 +122,18 @@ void Engine::Window::GLFWWindow::initializeContext()
 	glfwSwapInterval(0);
 
 	initGlew();
+
+	IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+	std::cout << "Created ImGui context: " << ImGui::GetCurrentContext() << std::endl;
+	//ImGui::SetCurrentContext(ImGui::GetCurrentContext());
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	ImGui::StyleColorsDark();
+	
+	// ImGui backends
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 410");
 
 	addUserInterface(new Engine::Window::WorldControllerUI(window));
 }

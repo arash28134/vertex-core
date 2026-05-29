@@ -63,7 +63,6 @@
 
 #include "WorldConfig.h"
 
-void initImGui();
 void initOpenGL();
 void initScene();
 void initTables();
@@ -87,11 +86,8 @@ int main(int argc, char** argv)
 	std::cout << "main started\n";
 	std::locale::global(std::locale("spanish")); // acentos ;)
 
-	std::cout << "before imgui init\n";
-	initImGui();
 	std::cout << "before opengl\n";
 	// Initialize OpenGL and window system
-	// PROGRAM CRASHES RIGHT HERE...
 	initOpenGL();
 	std::cout << "before tables\n";
 	// Initialize caches
@@ -99,10 +95,10 @@ int main(int argc, char** argv)
 	std::cout << "before scene\n";
 	// Create new scene
 	initScene();
-	std::cout << "before before renderer\n";
+	std::cout << "before renderer\n";
 	// Build the renderer
 	initRenderEngine();
-	std::cout << "before before scene elements\n";
+	std::cout << "before scene elements\n";
 	// Add scene elements
 	initSceneObj();
 	std::cout << "before input handlers\n";
@@ -123,18 +119,6 @@ int main(int argc, char** argv)
 // ======================================================================
 // ======================================================================
 
-// Initializes ImGui and other backends
-void initImGui()
-{
-	IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-	std::cout << "Created ImGui context: " << ImGui::GetCurrentContext() << std::endl;
-	//ImGui::SetCurrentContext(ImGui::GetCurrentContext());
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	ImGui::StyleColorsDark();
-}
-
 // Initializes OpenGL and the window system
 void initOpenGL()
 {
@@ -143,10 +127,6 @@ void initOpenGL()
 	win->setContextProfile(GLFW_OPENGL_CORE_PROFILE);
 
 	Engine::Window::WindowManager::getInstance().setToolkit(std::move(win));
-
-	// ImGui backends
-	ImGui_ImplGlfw_InitForOpenGL(win->getNativeWindow(), true);
-	ImGui_ImplOpenGL3_Init("#version 410");
 }
 
 // Creates a new scene and activates it
@@ -257,15 +237,20 @@ void initHandlers()
 void initRenderEngine()
 {
 	Engine::DeferredRenderer * dr = new Engine::DeferredRenderer();
+	std::cout << "NEw deferred renderer\n";
 	dr->addPostProcess(createSSGodRayNode());		// SS God Rays
+	std::cout << "God rays added\n";
 	dr->addPostProcess(createBloomNode());			// Bloom
 	dr->addPostProcess(createSSReflectionNode());	// SS Reflections
 	dr->addPostProcess(createSSGrassNode());		// SS Grass
 	dr->addPostProcess(createHDRNode());			// Tone mapping
 	dr->addPostProcess(createDOFNode());			// Depth of field
+	std::cout << "Post processes added\n";
 
 	Engine::RenderManager::getInstance().setRenderer(dr);
+	std::cout << "Renderer set\n";
 	Engine::RenderManager::getInstance().doResize(1024, 1024);
+	std::cout << "Resize done.\n";
 }
 
 // Clean up cache (both CPU and GPU)
@@ -407,9 +392,11 @@ Engine::PostProcessChainNode * createHDRNode()
 Engine::PostProcessChainNode * createSSGodRayNode()
 {
 	Engine::PostProcessChainNode * node = new Engine::PostProcessChainNode;
+	std::cout << "New process chain node.\n";
 
 	// Shader
 	node->postProcessProgram = Engine::ProgramTable::getInstance().getProgram<Engine::SSGodRayProgram>();
+	std::cout << "godray shader added..\n";
 
 	// RTT
 	node->renderBuffer = new Engine::DeferredRenderObject(1, false);
