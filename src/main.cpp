@@ -5,14 +5,11 @@
 
 #include <windows.h>
 
-#include "windowmanagers/GLUTWindow.h"
 #include "windowmanagers/GLFWWindow.h"
 #include "windowmanagers/WindowManager.h"
 
 #include "userinterfaces/WorldControllerUI.h"
 
-#define SOLVE_FGLUT_WARNING
-#include <gl/freeglut.h> 
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 #include <imgui.h>
