@@ -187,25 +187,32 @@ void initTables()
 void initSceneObj()
 {
 	Engine::Scene * scene = Engine::SceneManager::getInstance().getActiveScene();
+	std::cout << "Set active scene.\n";
 
 	// Add directional light
 	Engine::DirectionalLight * dl = new Engine::DirectionalLight();
 	dl->setColor(Engine::Settings::lightColor);
 	dl->setDirection(Engine::Settings::lightDirection);
 	scene->setDirectionalLight(dl);
+	std::cout << "Added directional light\n";
 
 	// Set a terrain
 	scene->setTerrain(new Engine::Terrain(Engine::Settings::worldTileScale, Engine::Settings::worldRenderRadius));
+	std::cout << "Set terrain.\n";
 	// Set a skybox
 	scene->setSkybox(new Engine::SkyBox());
-	
+	std::cout << "SEt skybox\n";
+
 	// Configure clear color (used for far objects fog)
 	scene->setClearColor(glm::vec3(0.8, 0.85, 1));
-	
+	std::cout << "Set clear color\n";
+
 	scene->initialize();
+	std::cout << "Scene initialized.\n";
 
 	// Trigger FBO resize according to screen size
 	Engine::RenderManager::getInstance().doResize(1024, 1024);
+	std::cout << "FBO resize set according to screen size.\n";
 }
 
 // Initialize user input and animation handlers (updated once per frame)
