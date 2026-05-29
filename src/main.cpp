@@ -128,7 +128,6 @@ int main(int argc, char** argv)
 // Initializes ImGui and other backends
 void initImGui()
 {
-	// Initialize ImGui
 	IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 	std::cout << "Created ImGui context: " << ImGui::GetCurrentContext() << std::endl;
