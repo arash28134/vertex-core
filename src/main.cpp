@@ -15,6 +15,9 @@
 #include <gl/freeglut.h> 
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 #include <iostream>
 
 #include "Scene.h"
@@ -63,6 +66,7 @@
 
 #include "WorldConfig.h"
 
+void initImGui();
 void initOpenGL();
 void initScene();
 void initTables();
@@ -86,6 +90,8 @@ int main(int argc, char** argv)
 	std::cout << "main started\n";
 	std::locale::global(std::locale("spanish")); // acentos ;)
 
+	std::cout << "before imgui init\n";
+	initImGui();
 	std::cout << "before opengl\n";
 	// Initialize OpenGL and window system
 	initOpenGL();
@@ -119,6 +125,19 @@ int main(int argc, char** argv)
 // ======================================================================
 // ======================================================================
 
+// Initializes ImGui and other backends
+void initImGui()
+{
+	// Initialize ImGui
+	IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+	std::cout << "Created ImGui context: " << ImGui::GetCurrentContext() << std::endl;
+	//ImGui::SetCurrentContext(ImGui::GetCurrentContext());
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	ImGui::StyleColorsDark();
+}
+
 // Initializes OpenGL and the window system
 void initOpenGL()
 {
@@ -127,6 +146,10 @@ void initOpenGL()
 	win->setContextProfile(GLFW_OPENGL_CORE_PROFILE);
 
 	Engine::Window::WindowManager::getInstance().setToolkit(std::move(win));
+
+	// ImGui backends
+	ImGui_ImplGlfw_InitForOpenGL(win->getNativeWindow(), true);
+	ImGui_ImplOpenGL3_Init("#version 410");
 }
 
 // Creates a new scene and activates it

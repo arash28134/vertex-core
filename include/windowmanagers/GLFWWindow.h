@@ -1,5 +1,5 @@
 /**
-* @author Nadir Román Guerrero
+* @author Nadir Romï¿½n Guerrero
 * @email nadir.ro.gue@gmail.com
 */
 #pragma once
@@ -60,6 +60,8 @@ namespace Engine
 			void setResizeCallback(glfwResizeCallback resCb);
 
 			void onMouseClick(int button, int state);
+
+			GLFWwindow* getNativeWindow() const;
 		};
 	}
 }
