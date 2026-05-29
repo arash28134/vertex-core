@@ -91,6 +91,7 @@ int main(int argc, char** argv)
 	initImGui();
 	std::cout << "before opengl\n";
 	// Initialize OpenGL and window system
+	// PROGRAM CRASHES RIGHT HERE...
 	initOpenGL();
 	std::cout << "before tables\n";
 	// Initialize caches
