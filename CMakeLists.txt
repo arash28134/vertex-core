@@ -39,3 +39,13 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 if(WIN32)
     target_compile_definitions(${PROJECT_NAME} PRIVATE WIN32_LEAN_AND_MEAN)
 endif()
+
+set(ASSET_DIRS shaders fonts)
+
+foreach(dir IN LISTS ASSET_DIRS)
+    add_custom_command(TARGET vertex-core POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/${dir}
+            $<TARGET_FILE_DIR:vertex-core>/${dir}
+    )
+endforeach()
