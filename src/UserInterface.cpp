@@ -12,7 +12,7 @@
 Engine::Window::UserInterface::UserInterface(GLFWwindow * surf)
 	:surface(surf)
 {
-	setFont("lib/include/imgui/extra_fonts/Roboto-Medium.ttf");
+	setFont("fonts/Roboto-Medium.ttf");
 }
 
 Engine::Window::UserInterface::~UserInterface()
