@@ -196,6 +196,7 @@ void initSceneObj()
 	scene->setDirectionalLight(dl);
 	std::cout << "Added directional light\n";
 
+	std::cout << "preparing to set terrain object...\n";
 	// Set a terrain
 	scene->setTerrain(new Engine::Terrain(Engine::Settings::worldTileScale, Engine::Settings::worldRenderRadius));
 	std::cout << "Set terrain.\n";
@@ -244,7 +245,7 @@ void initHandlers()
 void initRenderEngine()
 {
 	Engine::DeferredRenderer * dr = new Engine::DeferredRenderer();
-	std::cout << "NEw deferred renderer\n";
+	std::cout << "New deferred renderer\n";
 	dr->addPostProcess(createSSGodRayNode());		// SS God Rays
 	std::cout << "God rays added\n";
 	dr->addPostProcess(createBloomNode());			// Bloom
