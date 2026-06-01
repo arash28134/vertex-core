@@ -1,5 +1,5 @@
 /*
-* @author Nadir Román Guerrero
+* @author Nadir Romï¿½n Guerrero
 * @email nadir.ro.gue@gmail.com
 */
 
@@ -65,6 +65,7 @@ const glm::vec3 & Engine::Scene::getClearColor() const
 void Engine::Scene::setTerrain(Terrain * terrain)
 {
 	this->terrain = terrain;
+	std::cout << "NEW terrain set.\n";
 }
 
 Engine::Terrain * Engine::Scene::getTerrain()

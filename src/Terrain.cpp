@@ -151,25 +151,35 @@ void Engine::Terrain::initialize()
 {
 	Engine::RenderableNotifier::getInstance().registerRenderable(this);
 	Engine::CascadeShadowMaps::getInstance().registerShadowCaster(this);
+	std::cout << "REgister shadow caster set\n";
 
 	// MESHES INSTANCING
 	createTileMesh();
+	std::cout << "Tile mesh set.\n";
 
 	Engine::LandscapeComponent * landscape = new Engine::LandscapeComponent();
+	std::cout << "made new landscape\n";
 	landscape->init(tileWidth, true);
+	std::cout << "landscape init done\n";
 	registerComponent(landscape);
+	std::cout << "landscape set\n";
 
 	Engine::WaterComponent * water = new Engine::WaterComponent();
+	std::cout << "made new water\n";
 	water->init(tileWidth, false);
+	std::cout << "water init done\n";
 	registerComponent(water);
+	std::cout << "water set\n";
 
 	Engine::TreeComponent * trees = new Engine::TreeComponent();
 	trees->init(tileWidth, true);
 	registerComponent(trees);
+	std::cout << "trees set\n";
 
 	Engine::FlowerComponent * flowers = new Engine::FlowerComponent();
 	flowers->init(tileWidth, false);
 	registerComponent(flowers);
+	std::cout << "flower set\n";
 }
 
 void Engine::Terrain::createTileMesh()

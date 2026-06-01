@@ -5,6 +5,8 @@
 
 #include "CascadeShadowMaps.h"
 
+#include <iostream>
+
 Engine::WaterComponent::WaterComponent()
 	:Engine::TerrainComponent()
 {
@@ -19,22 +21,29 @@ unsigned int Engine::WaterComponent::getRenderRadius()
 void Engine::WaterComponent::initialize()
 {
 	fillShader = Engine::ProgramTable::getInstance().getProgram<Engine::ProceduralWaterProgram>();
+	std::cout << "got fillshader\n";
 
-	wireShader = Engine::ProgramTable::getInstance().getProgram<Engine::ProceduralWaterProgram>(Engine::ProceduralWaterProgram::WIRE_DRAW_MODE);
+	// wireShader = Engine::ProgramTable::getInstance().getProgram<Engine::ProceduralWaterProgram>(Engine::ProceduralWaterProgram::WIRE_DRAW_MODE);
+	// std::cout << "got wire shader\n";
 
-	pointShader = Engine::ProgramTable::getInstance().getProgram<Engine::ProceduralWaterProgram>(Engine::ProceduralWaterProgram::POINT_DRAW_MODE);
+	// pointShader = Engine::ProgramTable::getInstance().getProgram<Engine::ProceduralWaterProgram>(Engine::ProceduralWaterProgram::POINT_DRAW_MODE);
+	// std::cout << "got point shader\n";
 
 	/*shadowShader = Engine::ProgramTable::getInstance().getProgram<Engine::ProceduralTerrainProgram>(
 		Engine::ProceduralTerrainProgram::PROGRAM_NAME,
 		Engine::ProceduralTerrainProgram::SHADOW_MAP);*/
 
 	Engine::Mesh * tile = Engine::MeshTable::getInstance().getMesh("terrain_tile");
+	std::cout << "made new terrain tile\n";
 	waterTile = new Engine::Object(tile);
+	std::cout << "terrain tile instance render\n";
 	waterTile->setScale(glm::vec3(scale));
+	std::cout << "water tile scaled\n";
 
 	fillShader->configureMeshBuffers(tile);
-	wireShader->configureMeshBuffers(tile);
+	// wireShader->configureMeshBuffers(tile);
 	//shadowShader->configureMeshBuffers(tile);
+	std::cout << "configured mesh buffers\n";
 
 	activeShader = fillShader;
 }
